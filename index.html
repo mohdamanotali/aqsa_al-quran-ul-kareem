@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#898989" />
+    <title>Aqsa3</title>
+    <link rel="icon" href="icons/favicon.ico" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="src/styles.css">
+</head>
+
+<body id="body">
+    <main>
+        <div id="loader">
+            <p>Preparing data.<span>Please wait....</span></p>
+        </div>
+        <header id="header">
+            <div id="top-nav">
+                <p>Aqsa3 &nbsp;&#10095;&nbsp; Al-Quran-ul-Kareem<span>القرآن الكريم</span></p>
+            </div>
+            <div id="bottom-nav">
+                <button class="nav-btn active-nav" data-section="chapter">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.5" stroke="currentColor"
+                        class="size-6" viewBox="3 3.75 18 16.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z">
+                        </path>
+                    </svg>
+                </button>
+                <button class="nav-btn" data-section="bookmark">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.5" stroke="currentColor"
+                        class="size-6" viewBox="3.75 2.25 16.5 19.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z">
+                        </path>
+                    </svg>
+                </button>
+                <button class="nav-btn" data-section="search">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.5" stroke="currentColor"
+                        class="size-6" viewBox="2.25 2.25 19.5 19.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+        <section id="index">
+            <div id="chapter" class="data-section">
+            </div>
+            <div id="bookmark" class="data-section d-none">
+            </div>
+            <div id="search" class="data-section d-none">
+                <div id="go-to">
+                    <select id="goto-chapter"></select>
+                    <div>
+                        <input id="goto-verse" type="text" data-min="1" data-max="3" placeholder="Verse No." />
+                        <button id="goto-btn">Go-To</button>
+                    </div>
+                </div>
+                <div id="page-preview">
+                    <label>Page-Preview</label>
+                    <div id="pp-wrap">
+                        <p id="pp-ar">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
+                        <p id="pp-en">In the name of Allah, the Entirely Merciful, the Especially Merciful</p>
+                        <p id="pp-bn">শুরু করছি আল্লাহর নামে যিনি পরম করুণাময়, অতি দয়ালু।</p>
+                    </div>
+                </div>
+                <div class="setting">
+                    <div>
+                        <label>&#10070; Background color</label>
+                        <div class="custom-select" data-sid="bg-color">
+                            <span id="pp-bg-color" class="" data-key="backgroundcolor">&nbsp;</span>
+                            <small>&#x25BC;</small>
+                        </div>
+                    </div>
+                    <section id="bg-color" class="select-list d-none">
+                        <ul>
+                            <li class="item-title">Background color</li>
+                            <li class="select-item bg-color bgColor1" data-lic="bg-color" data-sic="bgColor1">&nbsp;
+                            </li>
+                            <li class="select-item bg-color bgColor2" data-lic="bg-color" data-sic="bgColor2">&nbsp;
+                            </li>
+                            <li class="select-item bg-color bgColor3" data-lic="bg-color" data-sic="bgColor3">&nbsp;
+                            </li>
+                            <li class="select-item bg-color bgColor4" data-lic="bg-color" data-sic="bgColor4">&nbsp;
+                            </li>
+                            <li class="select-item bg-color bgColor5" data-lic="bg-color" data-sic="bgColor5">&nbsp;
+                            </li>
+                            <li class="close-setting">Close</li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="setting">
+                    <div>
+                        <label>&#10070; Arabic font size</label>
+                        <div class="custom-select" data-sid="arabic-fs">
+                            <span id="pp-arabic-fs" data-key="arfontsize">&nbsp;</span>
+                            <small>&#x25BC;</small>
+                        </div>
+                    </div>
+                    <section id="arabic-fs" class="select-list d-none">
+                        <ul>
+                            <li class="item-title">Arabic font size</li>
+                            <li class="select-item arabic-fs arfont24" data-lic="arabic-fs">24</li>
+                            <li class="select-item arabic-fs arfont28" data-lic="arabic-fs">28</li>
+                            <li class="select-item arabic-fs arfont32" data-lic="arabic-fs">32</li>
+                            <li class="select-item arabic-fs arfont36" data-lic="arabic-fs">36</li>
+                            <li class="select-item arabic-fs arfont40" data-lic="arabic-fs">40</li>
+                            <li class="close-setting">Close</li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="setting">
+                    <div>
+                        <label>&#10070; English font size</label>
+                        <div class="custom-select" data-sid="english-fs">
+                            <span id="pp-english-fs" data-key="enfontsize">&nbsp;</span>
+                            <small>&#x25BC;</small>
+                        </div>
+                    </div>
+                    <section id="english-fs" class="select-list d-none">
+                        <ul>
+                            <li class="item-title">English font size</li>
+                            <li class="select-item english-fs enfont12" data-lic="english-fs">12</li>
+                            <li class="select-item english-fs enfont14" data-lic="english-fs">14</li>
+                            <li class="select-item english-fs enfont16" data-lic="english-fs">16</li>
+                            <li class="select-item english-fs enfont18" data-lic="english-fs">18</li>
+                            <li class="close-setting">Close</li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="setting">
+                    <div>
+                        <label>&#10070; Bangla font size</label>
+                        <div class="custom-select" data-sid="bangla-fs">
+                            <span id="pp-bangla-fs" data-key="bnfontsize">&nbsp;</span>
+                            <small>&#x25BC;</small>
+                        </div>
+                    </div>
+                    <section id="bangla-fs" class="select-list d-none">
+                        <ul>
+                            <li class="item-title">Bangla font size</li>
+                            <li class="select-item bangla-fs bnfont14" data-lic="bangla-fs">14</li>
+                            <li class="select-item bangla-fs bnfont16" data-lic="bangla-fs">16</li>
+                            <li class="select-item bangla-fs bnfont18" data-lic="bangla-fs">18</li>
+                            <li class="select-item bangla-fs bnfont20" data-lic="bangla-fs">20</li>
+                            <li class="close-setting">Close</li>
+                        </ul>
+                    </section>
+                </div>
+                <footer>
+                    <span>Version 1.0.0</span>
+                    <a href="https://github.com/mohdamanotali">github.com/mohdamanotali</a>
+                </footer>
+            </div>
+        </section>
+        <section id="verse" class="d-none">
+            <nav id="nav">
+                <div>
+                    <button id="back-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FAF9F6" class="size-6"
+                            viewBox="1.97 3.75 20.53 16.5">
+                            <path fill-rule="evenodd"
+                                d="M2.515 10.674a1.875 1.875 0 0 0 0 2.652L8.89 19.7c.352.351.829.549 1.326.549H19.5a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-9.284c-.497 0-.974.198-1.326.55l-6.375 6.374ZM12.53 9.22a.75.75 0 1 0-1.06 1.06L13.19 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06l1.72-1.72 1.72 1.72a.75.75 0 1 0 1.06-1.06L15.31 12l1.72-1.72a.75.75 0 1 0-1.06-1.06l-1.72 1.72-1.72-1.72Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="nav-title"></div>
+                <div id="prev-next-btn">
+                    <button class="prev-next-btn prev-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FAF9F6" class="size-6"
+                            viewBox="4.21 3.78 15.29 16.45">
+                            <path fill-rule="evenodd"
+                                d="M19.5 5.653c0-1.427-1.529-2.33-2.779-1.643L5.18 10.357c-1.295.712-1.295 2.573 0 3.286l11.54 6.347c1.25.687 2.779-.217 2.779-1.643V5.653Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <button class="prev-next-btn next-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#FAF9F6" class="size-6"
+                            viewBox="4.5 3.78 15.29 16.45">
+                            <path fill-rule="evenodd"
+                                d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+            <div id="page">
+            </div>
+    </main>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker Registered'))
+                .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script>
+    <script src="src/scripts.js"></script>
+</body>
+
+</html>

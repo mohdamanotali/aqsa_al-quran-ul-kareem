@@ -1,0 +1,26 @@
+{
+  "name": "Aqsa3",
+  "short_name": "Aqsa3",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#faf9f6",
+  "theme_color": "#899499",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

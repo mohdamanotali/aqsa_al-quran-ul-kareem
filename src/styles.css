@@ -1,0 +1,669 @@
+@import url("../fonts/fonts.css");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "OpenSans";
+    font-size: 12px;
+    color: #36454F;
+    line-height: 100%;
+}
+
+
+.bgColor1 {
+    background-color: #FAF7F2 !important;
+}
+
+.bgColor2 {
+    background-color: #F4F1EA !important;
+}
+
+.bgColor3 {
+    background-color: #FFF8E7 !important;
+}
+
+.bgColor4 {
+    background-color: #F1E7D0 !important;
+}
+
+.bgColor5 {
+    background-color: #FFF !important;
+}
+
+.clear-fix {
+    clear: both;
+}
+
+.d-none {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+.of-hidden {
+    overflow: hidden;
+}
+
+body,
+html {
+    width: 100%;
+    height: auto;
+    background-color: #FAF9F6;
+    cursor: default;
+}
+
+main {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+#loader {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    background-color: #FAF9F6;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loader p {
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#loader span {
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.25);
+    display: block;
+}
+
+header {
+    width: 100%;
+    min-height: 10px;
+    max-height: auto;
+    background-color: #FFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    border-bottom: 5px solid #FAF9F6;
+    transition: all 0.5s ease-in-out;
+}
+
+#top-nav {
+    background-color: #899499;
+}
+
+#top-nav p {
+    padding: 10px 20px;
+    color: #FFF;
+    text-align: center;
+}
+
+#top-nav span {
+    padding-left: 10px;
+    color: #FFF;
+    display: inline-block;
+}
+
+#bottom-nav {
+    margin: 0;
+    background-color: #FFF;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#bottom-nav .nav-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #899499;
+    background: none;
+    border: none;
+}
+
+.nav-btn svg {
+    width: auto;
+    height: 16px;
+    stroke: #899499;
+}
+
+#bottom-nav .active-nav {
+    color: #36454F;
+}
+
+#bottom-nav .active-nav svg {
+    stroke: #36454F;
+}
+
+#index {
+    width: 100%;
+    min-height: 10px;
+    max-height: auto;
+}
+
+#chapter,
+#bookmark,
+#search {
+    padding: 0 10px 20px 10px;
+    width: 100%;
+    height: auto;
+}
+
+.in-wrapper {
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
+.in-left {
+    color: #899499;
+    flex: 1;
+    align-self: center;
+}
+
+.in-right {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+.in-top {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.in-top span:first-of-type {
+    font-size: 14px;
+}
+
+.in-top span:last-of-type {
+    font-size: 20px;
+}
+
+.bm-wrapper {
+    position: relative;
+}
+
+.bm-wrapper small {
+    padding: 20px;
+    font-size: 10px;
+    text-align: center;
+    color: #899499;
+    display: block;
+}
+
+.unmark {
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+}
+
+.unmark img {
+    width: auto;
+    height: 12px;
+}
+
+.in-bottom {
+    padding-top: 5px;
+    flex: 1;
+    font-size: 10px;
+}
+
+.medinan {
+    color: #108548;
+}
+
+.meccan {
+    color: #284779;
+}
+
+#verse {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow-y: auto;
+}
+
+#nav {
+    width: 100%;
+    min-height: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #899499;
+}
+
+#nav div {
+    color: #FFF;
+}
+
+#nav button {
+    padding: 10px 20px;
+    color: #FFF;
+    background: none;
+    border: none;
+}
+
+#nav button svg {
+    width: auto;
+    height: 12px;
+}
+
+#nav-title {
+    padding: 0 20px;
+}
+
+.chapter {
+    padding-bottom: 40px;
+}
+
+.ch-title {
+    padding: 10px 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ch-title p {
+    font-size: 28px;
+    line-height: 150%;
+}
+
+.ch-title span {
+    padding: 5px 0;
+}
+
+.ch-title small {
+    padding-top: 5px;
+    font-size: 10px;
+}
+
+.line {
+    padding: 20px 20px 0 20px;
+}
+
+.line div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.line div button {
+    font-size: 10px;
+    color: #899499;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+.line div button svg {
+    margin-right: 5px;
+    width: auto;
+    height: 12px;
+    stroke: #899499;
+    fill: none;
+}
+
+.line div button.pinned svg {
+    stroke: #899499;
+    fill: #899499;
+}
+
+.line div label {
+    font-size: 14px;
+    color: #899499;
+}
+
+.line p {
+    margin: 10px 0;
+    direction: rtl;
+    text-align: right;
+    font-family: "AmiriQuran" !important;
+    line-height: 200%;
+}
+
+.line span {
+    margin-top: 5px;
+    line-height: 150%;
+    display: block;
+}
+
+.line span:last-child {
+    font-family: "SolaimanLipi" !important;
+}
+
+#page.arfont24 .line p {
+    font-size: 24px !important;
+}
+
+#page.arfont28 .line p {
+    font-size: 28px !important;
+}
+
+#page.arfont32 .line p {
+    font-size: 32px !important;
+}
+
+#page.arfont36 .line p {
+    font-size: 36px !important;
+}
+
+#page.arfont40 .line p {
+    font-size: 40px !important;
+}
+
+#page.enfont12 .line span {
+    font-size: 12px !important;
+}
+
+#page.enfont14 .line span {
+    font-size: 14px !important;
+}
+
+#page.enfont16 .line span {
+    font-size: 16px !important;
+}
+
+#page.enfont18 .line span {
+    font-size: 18px !important;
+}
+
+#page.bnfont14 .line span:last-child {
+    font-size: 14px !important;
+}
+
+#page.bnfont16 .line span:last-child {
+    font-size: 16px !important;
+}
+
+#page.bnfont18 .line span:last-child {
+    font-size: 18px !important;
+}
+
+#page.bnfont20 .line span:last-child {
+    font-size: 20px !important;
+}
+
+.bismillah {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bismillah img {
+    width: auto;
+    height: 30px;
+}
+
+#go-to,
+.config {
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
+#goto-chapter {
+    padding: 0 5px;
+    width: 100%;
+    height: 20px;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+#go-to div,
+.config div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#goto-verse {
+    margin-top: 10px;
+    padding: 0 5px;
+    width: 50%;
+    height: 20px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+#goto-btn {
+    margin-top: 10px;
+    width: 50%;
+    height: 20px;
+    color: #36454F;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    outline: none;
+}
+
+.config {
+    margin-top: 10px;
+}
+
+.config label {
+    width: 50%;
+}
+
+.config select {
+    padding: 0 5px;
+    width: 50%;
+    height: 20px;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+#page-preview {
+    padding: 20px 0 10px 0;
+}
+
+#page-preview label {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #898989;
+    display: block;
+}
+
+#pp-wrap {
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#pp-ar {
+    margin-bottom: 10px;
+    font-family: "AmiriQuran" !important;
+    line-height: 250%;
+    text-align: right;
+    direction: rtl;
+}
+
+#pp-en {
+    margin-top: 5px;
+    line-height: 150%;
+}
+
+#pp-bn {
+    margin-top: 5px;
+    font-family: "SolaimanLipi" !important;
+    line-height: 150%;
+}
+
+
+#pp-ar.arfont24 {
+    font-size: 24px !important;
+}
+
+#pp-ar.arfont28 {
+    font-size: 28px !important;
+}
+
+#pp-ar.arfont32 {
+    font-size: 32px !important;
+}
+
+#pp-ar.arfont36 {
+    font-size: 36px !important;
+}
+
+#pp-ar.arfont40 {
+    font-size: 40px !important;
+}
+
+#pp-en.enfont12 {
+    font-size: 12px !important;
+}
+
+#pp-en.enfont14 {
+    font-size: 14px !important;
+}
+
+#pp-en.enfont16 {
+    font-size: 16px !important;
+}
+
+#pp-en.enfont18 {
+    font-size: 18px !important;
+}
+
+#pp-bn.bnfont14 {
+    font-size: 14px !important;
+}
+
+#pp-bn.bnfont16 {
+    font-size: 16px !important;
+}
+
+#pp-bn.bnfont18 {
+    font-size: 18px !important;
+}
+
+#pp-bn.bnfont20 {
+    font-size: 20px !important;
+}
+
+footer {
+    padding: 40px 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer span {
+    color: #898989;
+}
+
+footer a {
+    text-decoration: none;
+    color: #898989;
+}
+
+.setting {
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
+.setting>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-select {
+    padding: 5px;
+    width: 50%;
+    height: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-select span {
+    width: 75%;
+}
+
+.custom-select small {
+    font-size: 10px;
+    color: #899499;
+    text-align: right;
+}
+
+.select-list {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.select-list ul {
+    padding: 0 20px;
+    width: 50%;
+    height: auto;
+    list-style: none;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
+.select-item {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #FAF9F6;
+}
+
+.item-title {
+    margin: 10px 0;
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.close-setting {
+    margin: 10px 0;
+    padding: 5px;
+    text-align: center;
+    color: #898989;
+}
+
+.select-item.selected {
+    border: 1px solid #899499;
+}
