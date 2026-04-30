@@ -428,15 +428,6 @@ header {
     border-radius: 5px;
 }
 
-#goto-chapter {
-    padding: 0 5px;
-    width: 100%;
-    height: 20px;
-    background: none;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    outline: none;
-}
-
 #go-to div,
 .config div {
     display: flex;
@@ -444,11 +435,50 @@ header {
     gap: 10px;
 }
 
+.config div label {
+    width: 75%;
+}
+
+.config section {
+    width: 100% !important;
+}
+
+.config section div {
+    margin-top: 10px;
+}
+
+.config section div input {
+    display: none;
+}
+
+.bg-color {
+    height: 25px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.config section div input:checked+.bg-color {
+    border: 1px solid #36454F;
+}
+
+#goto-chapter,
+.select-list {
+    padding: 0 5px;
+    width: 100%;
+    height: 25px !important;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.select-list {
+    width: 25% !important;
+}
+
 #goto-verse {
     margin-top: 10px;
-    padding: 0 5px;
     width: 50%;
-    height: 20px;
+    height: 25px;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.1);
     outline: none;
@@ -457,32 +487,15 @@ header {
 #goto-btn {
     margin-top: 10px;
     width: 50%;
-    height: 20px;
+    height: 25px;
     color: #36454F;
     background-color: rgba(0, 0, 0, 0.1);
     border: none;
     outline: none;
 }
 
-.config {
-    margin-top: 10px;
-}
-
-.config label {
-    width: 50%;
-}
-
-.config select {
-    padding: 0 5px;
-    width: 50%;
-    height: 20px;
-    background: none;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    outline: none;
-}
-
 #page-preview {
-    padding: 20px 0 10px 0;
+    padding: 10px 0;
 }
 
 #page-preview label {
@@ -585,85 +598,25 @@ footer a {
     color: #898989;
 }
 
-.setting {
-    margin-top: 5px;
-    padding: 10px;
-    width: 100%;
-    height: auto;
-    background-color: #FFF;
-    border-radius: 5px;
-}
-
-.setting>div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.custom-select {
-    padding: 5px;
-    width: 50%;
-    height: auto;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.custom-select span {
-    width: 75%;
-}
-
-.custom-select small {
-    font-size: 10px;
-    color: #899499;
-    text-align: right;
-}
-
-.select-list {
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
+#last-read {
+    padding: 5px 10px;
+    width: auto;
+    min-height: 10px;
+    max-height: auto;
+    bottom: 10px;
+    right: 10px;
     position: fixed;
-    z-index: 999999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.select-list ul {
-    padding: 0 20px;
-    width: 50%;
-    height: auto;
-    list-style: none;
-    background-color: #FFF;
+    background-color: #899499;
     border-radius: 5px;
+    z-index: 99;
+    transition: all 0.5s ease-in-out;
 }
 
-.select-item {
-    padding: 5px;
-    text-align: center;
-    border: 1px solid #FAF9F6;
+#last-read p {
+    color: #FFF;
 }
 
-.item-title {
-    margin: 10px 0;
-    padding: 5px;
+#last-read span {
     font-size: 10px;
-    text-align: center;
-    color: rgba(0, 0, 0, 0.25);
-}
-
-.close-setting {
-    margin: 10px 0;
-    padding: 5px;
-    text-align: center;
-    color: #898989;
-}
-
-.select-item.selected {
-    border: 1px solid #899499;
+    color: #FAF9F6;
 }

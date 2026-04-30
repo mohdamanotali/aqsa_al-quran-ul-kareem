@@ -4,7 +4,11 @@ const alquranlite = localStorage.getItem('alquranlite'),
     ),
     loader = document.getElementById("loader"),
     index = document.getElementById("index"),
-    header = document.getElementById("header");
+    header = document.getElementById("header"),
+    arFontSize = document.getElementById("arfontsize"),
+    enFontSize = document.getElementById("enfontsize"),
+    bnFontSize = document.getElementById("bnfontsize"),
+    lastRead = document.getElementById("last-read");
 
 index.style.marginTop = `${header.offsetHeight + 5}px`;
 
@@ -25,12 +29,10 @@ const ppBgColor = document.getElementById("pp-bg-color"),
     ppWrap = document.getElementById("pp-wrap"),
     ppAr = document.getElementById("pp-ar"),
     ppEn = document.getElementById("pp-en"),
-    ppBn = document.getElementById("pp-bn");
-let defaultBgColor, defaultArFontSize, defaultEnFontSize, defaultBnFontSize;
-const customSelect = document.querySelectorAll(".custom-select"),
-    selectList = document.querySelectorAll(".select-list"),
-    selectItem = document.querySelectorAll(".select-item"),
-    closeSetting = document.querySelectorAll(".close-setting");
+    ppBn = document.getElementById("pp-bn"),
+    selectList = document.querySelectorAll(".select-list");
+
+let lastreadvalue, defaultBgColor, defaultArFontSize, defaultEnFontSize, defaultBnFontSize;
 
 
 function appendFragment(area, temp) {
@@ -150,6 +152,7 @@ function renderAllData() {
     appendFragment(pageArea, pageTemp);
 
     bookmarkSection();
+    updateLastRead();
 }
 
 
@@ -194,6 +197,21 @@ function bookmarkSection() {
 }
 
 
+function updateLastRead() {
+    lastreadvalue = localStorage.getItem('lastread') ?? '';
+    lastRead.className = '';
+
+    if (lastreadvalue === '') {
+        lastRead.className = 'd-none';
+    } else {
+        let lrvSplit = lastreadvalue.split("-");
+        lastRead.dataset.chapter = 'chapter-' + lrvSplit[1];
+        lastRead.dataset.verse = lastreadvalue;
+        lastRead.querySelector('span').textContent = 'C-' + lrvSplit[1] + ' : ' + 'V-' + lrvSplit[2];
+    }
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
     let viewOnChapter = '',
         viewOnTitle = '',
@@ -206,8 +224,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (currentScrollY > lastScrollY && currentScrollY > header.offsetHeight) {
             header.style.top = "-100%";
+            lastRead.style.bottom = "-100%";
         } else {
             header.style.top = "0";
+            lastRead.style.bottom = "10px";
         }
 
         lastScrollY = currentScrollY;
@@ -247,6 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     // behavior: "smooth"
                 });
             }
+
+            observeLastRead();
         }
     }
 
@@ -268,6 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
         prevNextBtn.classList.remove("d-none");
         verseSection.classList.add("d-none");
         bodySection.classList.remove("of-hidden");
+        updateLastRead();
     }
 
     backButton.addEventListener("click", function () {
@@ -335,38 +358,40 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    function setDefaultConfig(init = false) {
-        defaultBgColor = localStorage.getItem('backgroundcolor') ?? 'bgColor1';
-        defaultArFontSize = localStorage.getItem('arfontsize') ?? 'arfont24';
-        defaultEnFontSize = localStorage.getItem('enfontsize') ?? 'enfont12';
-        defaultBnFontSize = localStorage.getItem('bnfontsize') ?? 'bnfont14';
+    function applyConfig(key = '*') {
+        if (key == 'backgroundcolor' || key == '*') {
+            defaultBgColor = localStorage.getItem('backgroundcolor') ?? 'bgColor1';
+            verseSection.className = "d-none " + defaultBgColor;
+            ppWrap.className = defaultBgColor;
+            document.getElementById(defaultBgColor).checked = true;
+        }
+        if (key == 'arfontsize' || key == '*') {
+            defaultArFontSize = localStorage.getItem('arfontsize') ?? 'arfont24';
+            arFontSize.value = defaultArFontSize;
+            ppAr.className = defaultArFontSize;
 
-        verseSection.className = "d-none " + defaultBgColor;
-        pageArea.className = defaultArFontSize + ' ' + defaultEnFontSize + ' ' + defaultBnFontSize;
-        ppWrap.className = defaultBgColor;
-        ppAr.className = defaultArFontSize;
-        ppEn.className = defaultEnFontSize;
-        ppBn.className = defaultBnFontSize;
+            const oldFontSize = [...pageArea.classList].find(c => c.startsWith('arfont'));
+            oldFontSize ? pageArea.classList.replace(oldFontSize, defaultArFontSize) : pageArea.classList.add(defaultArFontSize);
+        }
+        if (key == 'enfontsize' || key == '*') {
+            defaultEnFontSize = localStorage.getItem('enfontsize') ?? 'enfont12';
+            enFontSize.value = defaultEnFontSize;
+            ppEn.className = defaultEnFontSize;
 
-        if (init) {
-            selectItem.forEach(function (item) {
-                let hasAny = [defaultBgColor, defaultArFontSize, defaultEnFontSize, defaultBnFontSize].some(c => item.classList.contains(c));
+            const oldFontSize = [...pageArea.classList].find(c => c.startsWith('enfont'));
+            oldFontSize ? pageArea.classList.replace(oldFontSize, defaultEnFontSize) : pageArea.classList.add(defaultEnFontSize);
+        }
+        if (key == 'bnfontsize' || key == '*') {
+            defaultBnFontSize = localStorage.getItem('bnfontsize') ?? 'bnfont14';
+            bnFontSize.value = defaultBnFontSize;
+            ppBn.className = defaultBnFontSize;
 
-                if (hasAny) {
-                    item.classList.add("selected");
-                    let liClass = document.getElementById("pp-" + item.dataset.lic);
-
-                    if (item.dataset.sic !== undefined) {
-                        liClass.className = item.dataset.sic;
-                    } else {
-                        liClass.textContent = item.textContent;
-                    }
-                }
-            });
+            const oldFontSize = [...pageArea.classList].find(c => c.startsWith('bnfont'));
+            oldFontSize ? pageArea.classList.replace(oldFontSize, defaultBnFontSize) : pageArea.classList.add(defaultBnFontSize);
         }
     }
 
-    setDefaultConfig(true);
+    applyConfig();
 
 
     function validateVerseInput(e) {
@@ -449,62 +474,65 @@ document.addEventListener("DOMContentLoaded", function () {
             navDataSection.forEach(function (el) {
                 el.classList.add("d-none");
             });
+
+            const sectionId = btn.dataset.section;
             document.getElementById(btn.dataset.section).classList.remove("d-none");
 
             window.scrollTo({
                 top: 0,
                 // behavior: "smooth"
             });
-        });
-    });
 
-
-    customSelect.forEach(function (selector) {
-        selector.addEventListener("click", function () {
-            selectList.forEach(function (el) {
-                el.classList.add("d-none");
-            });
-
-            document.getElementById(selector.dataset.sid).classList.remove("d-none");
-        });
-    });
-
-    selectItem.forEach(function (item) {
-        item.addEventListener("click", function () {
-            let liClass = item.dataset.lic;
-            const licList = document.querySelectorAll("." + liClass);
-
-            licList.forEach(function (el) {
-                el.classList.remove("selected");
-            });
-
-            item.classList.add("selected");
-            liClass = document.getElementById("pp-" + liClass);
-            let key = liClass.dataset.key,
-                value = '';
-
-            if (item.dataset.sic !== undefined) {
-                liClass.className = item.dataset.sic;
-                value = item.dataset.sic;
-            } else {
-                liClass.textContent = item.textContent;
-                value = key.replace("size", item.textContent);
+            if (sectionId == 'search') {
+                chapterSelect.value = '';
+                goToVerse.value = '';
             }
-
-            localStorage.setItem(key, value);
-            setDefaultConfig();
         });
     });
 
-    closeSetting.forEach(function (closer) {
-        closer.addEventListener("click", function () {
-            selectList.forEach(function (el) {
-                el.classList.add("d-none");
+
+    selectList.forEach(function (selector) {
+        selector.addEventListener("change", function () {
+            localStorage.setItem(selector.id, selector.value);
+            applyConfig(selector.id);
+        });
+    });
+
+
+    document.addEventListener('change', function (e) {
+        if (e.target.matches('input[name="bg-color"]')) {
+            localStorage.setItem("backgroundcolor", e.target.id);
+            applyConfig("backgroundcolor");
+        }
+    });
+
+
+    function observeLastRead() {
+        const lines = document.querySelectorAll('#' + viewOnChapter + '-verse > div.line');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                    const id = entry.target.id;
+
+                    if (lastreadvalue !== id) {
+                        lastreadvalue = id;
+                        localStorage.setItem('lastread', id);
+                    }
+                }
             });
+        }, {
+            threshold: [0.5]
         });
+
+        lines.forEach(section => observer.observe(section));
+    }
+
+
+    lastRead.addEventListener("click", function () {
+        viewOnVerse = lastRead.dataset.verse;
+        onClickTitle(document.getElementById(lastRead.dataset.chapter));
     });
+
 
     loader.className = 'd-none';
-
 });
-
