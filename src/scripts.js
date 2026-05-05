@@ -1,7 +1,6 @@
-const alquranulkareem = JSON.parse(localStorage.getItem('alquranulkareem') || '[]'),
-    bookmarks = new Map(
-        JSON.parse(localStorage.getItem('bookmarks') || '[]')
-    ),
+const bookmarks = new Map(
+    JSON.parse(localStorage.getItem('bookmarks') || '[]')
+),
     loader = document.getElementById("loader"),
     index = document.getElementById("index"),
     header = document.getElementById("header");
@@ -37,23 +36,17 @@ function appendFragment(area, temp) {
 }
 
 
-if (Array.isArray(alquranulkareem) && alquranulkareem.length === 0) {
-    fetch('./src/al-quran-ul-kareem.json')
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem('alquranulkareem', JSON.stringify(Array.from(data)));
-            renderAllData();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-} else {
-    renderAllData();
-}
+fetch('./src/al-quran-ul-kareem.json')
+    .then(response => response.json())
+    .then(data => {
+        renderAllData(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
 
-function renderAllData() {
-    const alquranulkareem = JSON.parse(localStorage.getItem('alquranulkareem') || '[]');
+function renderAllData(data) {
     chapterArea.innerHTML = '';
     pageArea.innerHTML = '';
     chapterSelect.innerHTML = '<option value="">Select chapter</option>';
@@ -70,8 +63,8 @@ function renderAllData() {
         key,
         pinClass = '';
 
-    for (let i = 0; i < alquranulkareem.length; i++) {
-        row = alquranulkareem[i];
+    for (let i = 0; i < data.length; i++) {
+        row = data[i];
 
         if ('v_ar' in row) {
             key = `${'chapter-' + row.ch_no}_${'verse-' + row.ch_no + '-' + row.v_no + '-' + row.rk_no}`;
@@ -242,7 +235,7 @@ async function resetCache() {
             const cKeys = await caches.keys();
             await Promise.all(cKeys.map(key => caches.delete(key)));
 
-            const lsKeys = ['alquranulkareem', 'bookmarks', 'lastread', 'backgroundcolor', 'arfontfamily', 'arfontsize', 'enfontfamily', 'enfontsize', 'bnfontfamily', 'bnfontsize'];
+            const lsKeys = ['bookmarks', 'lastread', 'backgroundcolor', 'arfontfamily', 'arfontsize', 'enfontfamily', 'enfontsize', 'bnfontfamily', 'bnfontsize'];
             lsKeys.forEach(key => localStorage.removeItem(key));
 
             location.reload();

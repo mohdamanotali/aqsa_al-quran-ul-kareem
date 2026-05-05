@@ -3,6 +3,7 @@ const urlsToCache = [
     '/',
     '/manifest.json',
     '/index.html',
+    '/src/al-quran-ul-kareem.json',
     '/src/styles.css',
     '/src/scripts.js',
     '/fonts/fonts.css',
