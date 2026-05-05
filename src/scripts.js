@@ -221,11 +221,11 @@ function exportBookmark() {
 
 async function resetCache() {
     if (!navigator.onLine) {
-        alert("No internet connection, unable to reset and clean caches");
+        alert("No internet connection, unable to reset and clear caches");
         return;
     }
 
-    if (confirm("Are you sure to reset and clean caches?")) {
+    if (confirm("Are you sure to reset and clear caches?")) {
         try {
             const swReg = await navigator.serviceWorker.getRegistration();
             if (swReg) {
