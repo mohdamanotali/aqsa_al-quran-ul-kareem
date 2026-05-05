@@ -10,14 +10,18 @@ A simple, clean, and fast **Progressive Web App (PWA)** for reading the Holy Qur
   Easily browse and access all Surahs in a minimal, user-friendly layout.
 
 - **Bookmark System**  
-  Save your current position and continue reading anytime.
+  Save any verse and continue reading anytime including import and export bookmarks.
+
+- **Last Read**  
+  Your last read verse will be auto saved to continue later.
 
 - **Go-to Verse**  
   Quickly jump to any specific verse without scrolling.
 
 - **Custom Reading Experience**  
-  - Adjustable **font size**  
+  - Adjustable **font family and font size**  
   - Configurable **page background color**
+  - Can reset and clear caches manually
 
 - **PWA Support**  
   - Installable on mobile & desktop  
