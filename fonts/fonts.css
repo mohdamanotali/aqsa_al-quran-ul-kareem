@@ -1,28 +1,68 @@
 @font-face {
-    font-family: "AmiriQuran";
-    src: url("AmiriQuran-Regular.ttf") format("truetype"),
-        url("AmiriQuran-Regular.woff") format("woff"),
-        url("AmiriQuran-Regular.woff2") format("woff2");
+    font-family: "Hafs";
+    src: url("Hafs.ttf") format("truetype"),
+        url("Hafs.woff") format("woff"),
+        url("Hafs.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "OpenSans";
-    src: url("OpenSans-Regular.ttf") format("truetype"),
-        url("OpenSans-Regular.woff") format("woff"),
-        url("OpenSans-Regular.woff2") format("woff2");
+    font-family: "Majeed";
+    src: url("Majeed.ttf") format("truetype"),
+        url("Majeed.woff") format("woff"),
+        url("Majeed.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "SolaimanLipi";
-    src: url("SolaimanLipi-Regular.ttf") format("truetype"),
-        url("SolaimanLipi-Regular.woff") format("woff"),
-        url("SolaimanLipi-Regular.woff2") format("woff2");
+    font-family: "Mushaf";
+    src: url("Mushaf.ttf") format("truetype"),
+        url("Mushaf.woff") format("woff"),
+        url("Mushaf.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("OpenSans.ttf") format("truetype"),
+        url("OpenSans.woff") format("woff"),
+        url("OpenSans.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bornomala";
+    src: url("Bornomala.ttf") format("truetype"),
+        url("Bornomala.woff") format("woff"),
+        url("Bornomala.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "July";
+    src: url("July.ttf") format("truetype"),
+        url("July.woff") format("woff"),
+        url("July.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Purno";
+    src: url("Purno.ttf") format("truetype"),
+        url("Purno.woff") format("woff"),
+        url("Purno.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;

@@ -1,10 +1,20 @@
 @import url("../fonts/fonts.css");
 
+:root {
+    --bg-color: #FAF7F2;
+    --ar-font-family: 'Hafs';
+    --en-font-family: 'Courier New';
+    --bn-font-family: 'Bornomala';
+    --ar-font-size: 24px;
+    --en-font-size: 12px;
+    --bn-font-size: 14px;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "OpenSans";
+    font-family: 'Open Sans';
     font-size: 12px;
     color: #36454F;
     line-height: 100%;
@@ -234,6 +244,7 @@ header {
 }
 
 #verse {
+    background-color: var(--bg-color);
     position: fixed;
     inset: 0;
     z-index: 9999;
@@ -340,70 +351,22 @@ header {
     margin: 10px 0;
     direction: rtl;
     text-align: right;
-    font-family: "AmiriQuran" !important;
+    font-family: var(--ar-font-family);
+    font-size: var(--ar-font-size);
     line-height: 200%;
 }
 
 .line span {
     margin-top: 5px;
+    font-family: var(--en-font-family);
+    font-size: var(--en-font-size);
     line-height: 150%;
     display: block;
 }
 
 .line span:last-child {
-    font-family: "SolaimanLipi" !important;
-}
-
-#page.arfont24 .line p {
-    font-size: 24px !important;
-}
-
-#page.arfont28 .line p {
-    font-size: 28px !important;
-}
-
-#page.arfont32 .line p {
-    font-size: 32px !important;
-}
-
-#page.arfont36 .line p {
-    font-size: 36px !important;
-}
-
-#page.arfont40 .line p {
-    font-size: 40px !important;
-}
-
-#page.enfont12 .line span {
-    font-size: 12px !important;
-}
-
-#page.enfont14 .line span {
-    font-size: 14px !important;
-}
-
-#page.enfont16 .line span {
-    font-size: 16px !important;
-}
-
-#page.enfont18 .line span {
-    font-size: 18px !important;
-}
-
-#page.bnfont14 .line span:last-child {
-    font-size: 14px !important;
-}
-
-#page.bnfont16 .line span:last-child {
-    font-size: 16px !important;
-}
-
-#page.bnfont18 .line span:last-child {
-    font-size: 18px !important;
-}
-
-#page.bnfont20 .line span:last-child {
-    font-size: 20px !important;
+    font-family: var(--bn-font-family);
+    font-size: var(--bn-font-size);
 }
 
 .bismillah {
@@ -428,27 +391,37 @@ header {
     border-radius: 5px;
 }
 
+#imp-exp {
+    margin-top: 20px;
+}
+
 #go-to div,
 .config div {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.config div label {
-    width: 75%;
-}
-
-.config section {
-    width: 100% !important;
-}
-
-.config section div {
+.config div {
     margin-top: 10px;
 }
 
-.config section div input {
+.config div input {
     display: none;
+}
+
+.config div label {
+    flex: 1;
+}
+
+.config div button {
+    width: 50%;
+    height: 25px;
+    color: #36454F;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    outline: none;
 }
 
 .bg-color {
@@ -457,22 +430,29 @@ header {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.config section div input:checked+.bg-color {
+.config div input:checked+.bg-color {
     border: 1px solid #36454F;
 }
 
 #goto-chapter,
 .select-list {
     padding: 0 5px;
-    width: 100%;
     height: 25px !important;
     background: none;
     border: 1px solid rgba(0, 0, 0, 0.1);
     outline: none;
 }
 
-.select-list {
-    width: 25% !important;
+#goto-chapter {
+    width: 100%;
+}
+
+.select-list:first-child {
+    width: 65% !important;
+}
+
+.select-list:last-child {
+    width: 35% !important;
 }
 
 #goto-verse {
@@ -495,7 +475,7 @@ header {
 }
 
 #page-preview {
-    padding: 10px 0;
+    padding: 20px 0 5px 0;
 }
 
 #page-preview label {
@@ -507,79 +487,46 @@ header {
 
 #pp-wrap {
     padding: 20px;
+    background-color: var(--bg-color);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 #pp-ar {
     margin-bottom: 10px;
-    font-family: "AmiriQuran" !important;
-    line-height: 250%;
+    font-family: var(--ar-font-family);
+    font-size: var(--ar-font-size);
+    line-height: 200%;
     text-align: right;
     direction: rtl;
 }
 
 #pp-en {
     margin-top: 5px;
+    font-family: var(--en-font-family);
+    font-size: var(--en-font-size);
     line-height: 150%;
 }
 
 #pp-bn {
     margin-top: 5px;
-    font-family: "SolaimanLipi" !important;
+    font-family: var(--bn-font-family);
+    font-size: var(--bn-font-size);
     line-height: 150%;
 }
 
-
-#pp-ar.arfont24 {
-    font-size: 24px !important;
+#reset {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#pp-ar.arfont28 {
-    font-size: 28px !important;
-}
-
-#pp-ar.arfont32 {
-    font-size: 32px !important;
-}
-
-#pp-ar.arfont36 {
-    font-size: 36px !important;
-}
-
-#pp-ar.arfont40 {
-    font-size: 40px !important;
-}
-
-#pp-en.enfont12 {
-    font-size: 12px !important;
-}
-
-#pp-en.enfont14 {
-    font-size: 14px !important;
-}
-
-#pp-en.enfont16 {
-    font-size: 16px !important;
-}
-
-#pp-en.enfont18 {
-    font-size: 18px !important;
-}
-
-#pp-bn.bnfont14 {
-    font-size: 14px !important;
-}
-
-#pp-bn.bnfont16 {
-    font-size: 16px !important;
-}
-
-#pp-bn.bnfont18 {
-    font-size: 18px !important;
-}
-
-#pp-bn.bnfont20 {
-    font-size: 20px !important;
+#reset button {
+    padding: 5px;
+    color: rgba(255, 0, 0, 0.5);
+    background: none;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 5px;
 }
 
 footer {

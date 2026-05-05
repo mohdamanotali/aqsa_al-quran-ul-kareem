@@ -1,38 +1,29 @@
-const alquranlite = localStorage.getItem('alquranlite'),
+const alquranulkareem = JSON.parse(localStorage.getItem('alquranulkareem') || '[]'),
     bookmarks = new Map(
         JSON.parse(localStorage.getItem('bookmarks') || '[]')
     ),
     loader = document.getElementById("loader"),
     index = document.getElementById("index"),
-    header = document.getElementById("header"),
-    arFontSize = document.getElementById("arfontsize"),
-    enFontSize = document.getElementById("enfontsize"),
-    bnFontSize = document.getElementById("bnfontsize"),
-    lastRead = document.getElementById("last-read");
-
-index.style.marginTop = `${header.offsetHeight + 5}px`;
+    header = document.getElementById("header");
 
 let chapterArea = document.getElementById("chapter"),
     pageArea = document.getElementById("page"),
     navArea = document.getElementById("nav"),
-    chapterSelect = document.getElementById("goto-chapter");
+    bookmarkArea = document.getElementById("bookmark"),
+    chapterSelect = document.getElementById("goto-chapter"),
+    lastreadvalue;
 
 const verseSection = document.getElementById("verse"),
     bodySection = document.getElementById("body"),
     backButton = document.getElementById("back-btn"),
-    prevNextBtn = document.getElementById("prev-next-btn");
+    prevNextBtn = document.getElementById("prev-next-btn"),
+    lastRead = document.getElementById("last-read"),
+    pagePreview = document.getElementById("page-preview"),
+    selectList = document.querySelectorAll(".select-list"),
+    importFile = document.getElementById("importFile");
 
-const ppBgColor = document.getElementById("pp-bg-color"),
-    arabicFS = document.getElementById("arabic-fs"),
-    englishFS = document.getElementById("english-fs"),
-    banglaFS = document.getElementById("bangla-fs"),
-    ppWrap = document.getElementById("pp-wrap"),
-    ppAr = document.getElementById("pp-ar"),
-    ppEn = document.getElementById("pp-en"),
-    ppBn = document.getElementById("pp-bn"),
-    selectList = document.querySelectorAll(".select-list");
 
-let lastreadvalue, defaultBgColor, defaultArFontSize, defaultEnFontSize, defaultBnFontSize;
+index.style.marginTop = `${header.offsetHeight + 5}px`;
 
 
 function appendFragment(area, temp) {
@@ -46,11 +37,11 @@ function appendFragment(area, temp) {
 }
 
 
-if (alquranlite === null) {
+if (Array.isArray(alquranulkareem) && alquranulkareem.length === 0) {
     fetch('./src/al-quran-ul-kareem.json')
         .then(response => response.json())
         .then(data => {
-            localStorage.setItem('alquranlite', JSON.stringify([...data]));
+            localStorage.setItem('alquranulkareem', JSON.stringify(Array.from(data)));
             renderAllData();
         })
         .catch(error => {
@@ -62,8 +53,7 @@ if (alquranlite === null) {
 
 
 function renderAllData() {
-    const data = JSON.parse(localStorage.getItem('alquranlite') || []);
-
+    const alquranulkareem = JSON.parse(localStorage.getItem('alquranulkareem') || '[]');
     chapterArea.innerHTML = '';
     pageArea.innerHTML = '';
     chapterSelect.innerHTML = '<option value="">Select chapter</option>';
@@ -80,8 +70,8 @@ function renderAllData() {
         key,
         pinClass = '';
 
-    for (let i = 0; i < data.length; i++) {
-        row = data[i];
+    for (let i = 0; i < alquranulkareem.length; i++) {
+        row = alquranulkareem[i];
 
         if ('v_ar' in row) {
             key = `${'chapter-' + row.ch_no}_${'verse-' + row.ch_no + '-' + row.v_no + '-' + row.rk_no}`;
@@ -91,7 +81,7 @@ function renderAllData() {
             if (bookmarks.has(key)) {
                 pinClass += ' pinned';
             }
-            if (rukuCount !== row.rk_no) {
+            if (rukuCount < row.rk_no) {
                 rukuCount = row.rk_no;
                 rukuSign = '<label>&#10048;</label>';
             }
@@ -157,7 +147,6 @@ function renderAllData() {
 
 
 function bookmarkSection() {
-    let bookmarkArea = document.getElementById("bookmark");
     bookmarkArea.innerHTML = '';
     const bookmarkTemp = document.createElement('div');
     let bookmarkHtml = '',
@@ -187,7 +176,7 @@ function bookmarkSection() {
     }
 
     if (bookmarkHtml === '') {
-        bookmarkHtml += '<div class="bm-wrapper">'
+        bookmarkHtml = '<div class="bm-wrapper">'
             + '<small>No bookmark found</small>'
             + '</div>';
     }
@@ -208,6 +197,60 @@ function updateLastRead() {
         lastRead.dataset.chapter = 'chapter-' + lrvSplit[1];
         lastRead.dataset.verse = lastreadvalue;
         lastRead.querySelector('span').textContent = 'C-' + lrvSplit[1] + ' : ' + 'V-' + lrvSplit[2];
+    }
+}
+
+
+const bmFileName = 'al-quran-ul-kareem_bookmarks.json';
+
+function importBookmark() {
+    importFile.click();
+}
+
+function exportBookmark() {
+    const bmData = localStorage.getItem('bookmarks'),
+        bmDataMap = new Map(JSON.parse(bmData || '[]'));
+
+    if (bmDataMap.size === 0) {
+        alert("No bookmark found to export.");
+        return;
+    }
+
+    const blob = new Blob([bmData], { type: 'application/json' }),
+        url = URL.createObjectURL(blob),
+        a = document.createElement('a');
+    a.href = url;
+    a.download = bmFileName;
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+async function resetCache() {
+    if (!navigator.onLine) {
+        alert("No internet connection, unable to reset and clean caches");
+        return;
+    }
+
+    if (confirm("Are you sure to reset and clean caches?")) {
+        try {
+            const swReg = await navigator.serviceWorker.getRegistration();
+            if (swReg) {
+                await swReg.update();
+            }
+
+            const cKeys = await caches.keys();
+            await Promise.all(cKeys.map(key => caches.delete(key)));
+
+            const lsKeys = ['alquranulkareem', 'bookmarks', 'lastread', 'backgroundcolor', 'arfontfamily', 'arfontsize', 'enfontfamily', 'enfontsize', 'bnfontfamily', 'bnfontsize'];
+            lsKeys.forEach(key => localStorage.removeItem(key));
+
+            location.reload();
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    } else {
+        return;
     }
 }
 
@@ -339,14 +382,14 @@ document.addEventListener("DOMContentLoaded", function () {
             vInt = goToVerse.value !== '' ? parseInt(goToVerse.value, 10) : 0;
 
         if (cvInt < 1) {
-            chapterSelect.style.borderColor = 'rgba(255, 0, 0, 0.2)';
+            chapterSelect.style.borderColor = 'rgba(255, 0, 0, 0.3)';
             return;
         } else {
             chapterSelect.style.borderColor = 'rgba(0, 0, 0, 0.1)';
         }
 
         if (vInt < 1 || vInt > cvInt) {
-            goToVerse.style.borderColor = 'rgba(255, 0, 0, 0.2)';
+            goToVerse.style.borderColor = 'rgba(255, 0, 0, 0.3)';
             return;
         } else {
             goToVerse.style.borderColor = 'rgba(0, 0, 0, 0.1)';
@@ -360,34 +403,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function applyConfig(key = '*') {
         if (key == 'backgroundcolor' || key == '*') {
-            defaultBgColor = localStorage.getItem('backgroundcolor') ?? 'bgColor1';
-            verseSection.className = "d-none " + defaultBgColor;
-            ppWrap.className = defaultBgColor;
-            document.getElementById(defaultBgColor).checked = true;
+            const defaultBgColor = localStorage.getItem('backgroundcolor') ?? 'FAF7F2';
+            document.documentElement.style.setProperty('--bg-color', '#' + defaultBgColor);
+            if (key == '*') {
+                document.querySelectorAll('input[name="bg-color"]').forEach(radio => {
+                    radio.checked = (radio.value == defaultBgColor);
+                });
+            }
+        }
+
+        let defaultFontFamily, defaultFontSize;
+
+        if (key == 'arfontfamily' || key == '*') {
+            defaultFontFamily = localStorage.getItem('arfontfamily') ?? 'Hafs';
+            document.documentElement.style.setProperty('--ar-font-family', "'" + String(defaultFontFamily));
+            if (key == '*') {
+                document.getElementById('arfontfamily').value = defaultFontFamily;
+            }
         }
         if (key == 'arfontsize' || key == '*') {
-            defaultArFontSize = localStorage.getItem('arfontsize') ?? 'arfont24';
-            arFontSize.value = defaultArFontSize;
-            ppAr.className = defaultArFontSize;
-
-            const oldFontSize = [...pageArea.classList].find(c => c.startsWith('arfont'));
-            oldFontSize ? pageArea.classList.replace(oldFontSize, defaultArFontSize) : pageArea.classList.add(defaultArFontSize);
+            defaultFontSize = localStorage.getItem('arfontsize') ?? '24';
+            document.documentElement.style.setProperty('--ar-font-size', defaultFontSize + 'px');
+            if (key == '*') {
+                document.getElementById('arfontsize').value = defaultFontSize;
+            }
+        }
+        if (key == 'enfontfamily' || key == '*') {
+            defaultFontFamily = localStorage.getItem('enfontfamily') ?? 'Courier New';
+            document.documentElement.style.setProperty('--en-font-family', "'" + String(defaultFontFamily));
+            if (key == '*') {
+                document.getElementById('enfontfamily').value = defaultFontFamily;
+            }
         }
         if (key == 'enfontsize' || key == '*') {
-            defaultEnFontSize = localStorage.getItem('enfontsize') ?? 'enfont12';
-            enFontSize.value = defaultEnFontSize;
-            ppEn.className = defaultEnFontSize;
-
-            const oldFontSize = [...pageArea.classList].find(c => c.startsWith('enfont'));
-            oldFontSize ? pageArea.classList.replace(oldFontSize, defaultEnFontSize) : pageArea.classList.add(defaultEnFontSize);
+            defaultFontSize = localStorage.getItem('enfontsize') ?? '12';
+            document.documentElement.style.setProperty('--en-font-size', defaultFontSize + 'px');
+            if (key == '*') {
+                document.getElementById('enfontsize').value = defaultFontSize;
+            }
+        }
+        if (key == 'bnfontfamily' || key == '*') {
+            defaultFontFamily = localStorage.getItem('bnfontfamily') ?? 'Bornomala';
+            document.documentElement.style.setProperty('--bn-font-family', "'" + String(defaultFontFamily));
+            if (key == '*') {
+                document.getElementById('bnfontfamily').value = defaultFontFamily;
+            }
         }
         if (key == 'bnfontsize' || key == '*') {
-            defaultBnFontSize = localStorage.getItem('bnfontsize') ?? 'bnfont14';
-            bnFontSize.value = defaultBnFontSize;
-            ppBn.className = defaultBnFontSize;
-
-            const oldFontSize = [...pageArea.classList].find(c => c.startsWith('bnfont'));
-            oldFontSize ? pageArea.classList.replace(oldFontSize, defaultBnFontSize) : pageArea.classList.add(defaultBnFontSize);
+            defaultFontSize = localStorage.getItem('bnfontsize') ?? '14';
+            document.documentElement.style.setProperty('--bn-font-size', defaultFontSize + 'px');
+            if (key == '*') {
+                document.getElementById('bnfontsize').value = defaultFontSize;
+            }
         }
     }
 
@@ -453,7 +520,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         verseEl.classList.remove('pinned');
                     }
                     bookmarks.delete(key);
-                    localStorage.setItem('bookmarks', JSON.stringify([...bookmarks]));
+                    localStorage.setItem('bookmarks', JSON.stringify(Array.from(bookmarks)));
                     bookmarkSection();
                 }
             }
@@ -486,6 +553,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (sectionId == 'search') {
                 chapterSelect.value = '';
                 goToVerse.value = '';
+                importFile.value = '';
             }
         });
     });
@@ -495,14 +563,22 @@ document.addEventListener("DOMContentLoaded", function () {
         selector.addEventListener("change", function () {
             localStorage.setItem(selector.id, selector.value);
             applyConfig(selector.id);
+
+            pagePreview.scrollIntoView({
+                block: "start"
+            });
         });
     });
 
 
     document.addEventListener('change', function (e) {
         if (e.target.matches('input[name="bg-color"]')) {
-            localStorage.setItem("backgroundcolor", e.target.id);
-            applyConfig("backgroundcolor");
+            localStorage.setItem("backgroundcolor", e.target.value);
+            applyConfig('backgroundcolor');
+
+            pagePreview.scrollIntoView({
+                block: "start"
+            });
         }
     });
 
@@ -531,6 +607,65 @@ document.addEventListener("DOMContentLoaded", function () {
     lastRead.addEventListener("click", function () {
         viewOnVerse = lastRead.dataset.verse;
         onClickTitle(document.getElementById(lastRead.dataset.chapter));
+    });
+
+
+    const bmKeyRegex = /^chapter-\d+_verse-\d+-\d+-\d+$/,
+        bmValRegex = /^\d+\.\s.+$/;
+
+    importFile.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+
+        if (!file) {
+            importFile.value = '';
+            return;
+        } else if (file.name !== bmFileName) {
+            alert("Invalid file name/type to import.");
+            importFile.value = '';
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                let key = '',
+                    val = '',
+                    vid = '',
+                    flag = false;
+
+                for (let i = 0; i < data.length; i++) {
+                    key = data[i][0];
+                    val = data[i][1];
+
+                    if (bmKeyRegex.test(key) && bmValRegex.test(val)) {
+                        if (!bookmarks.has(key)) {
+                            bookmarks.set(key, val);
+
+                            vid = key.split("_")[1];
+                            document.getElementById(vid).classList.toggle("pinned");
+                        }
+                    } else {
+                        flag = true;
+                    }
+                }
+
+                localStorage.setItem('bookmarks', JSON.stringify(Array.from(bookmarks)));
+                bookmarkSection();
+
+                if (flag) {
+                    alert("Invalid data found in the file.");
+                } else {
+                    alert("Bookmarks have been imported.");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        reader.readAsText(file);
+        importFile.value = '';
     });
 
 
