@@ -153,11 +153,11 @@ function bookmarkSection() {
 
         bookmarkHtml += '<div class="bm-wrapper">'
             + '<div class="in-wrapper bookmark" id="' + key + '" data-chapter="' + mark[0] + '" data-verse="' + mark[1] + '">'
-            + '<div class="in-left">' + k++ + '</div>'
+            + '<div class="in-left"></div>'
             + '<div class="in-right">'
             + '<div class="in-top">'
             + '<span>' + v[1] + '</span>'
-            + '<span></span>'
+            + '<span>' + v[2] + '</span>'
             + '</div>'
             + '<div class="in-bottom">' + mark[0] + ' &xhArr; ' + mark[1] + '</div>'
             + '</div>'
@@ -340,7 +340,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (bookmarks.has(key)) {
             bookmarks.delete(key);
         } else {
-            bookmarks.set(key, viewOnTitle);
+            let vId = e.id.substring(0, e.id.lastIndexOf("-")),
+                vText = document.querySelector('#' + vId + ' p').textContent ?? '';
+            vText = vText.substring(0, 15) + '...';
+
+            bookmarks.set(key, viewOnTitle + '. ' + vText);
         }
 
         e.classList.toggle("pinned");

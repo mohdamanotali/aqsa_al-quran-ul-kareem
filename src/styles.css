@@ -201,6 +201,11 @@ header {
 
 .in-top span:last-of-type {
     font-size: 20px;
+    text-align: right;
+    direction: rtl;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .bm-wrapper {
@@ -217,11 +222,15 @@ header {
 
 .unmark {
     padding: 10px;
-    position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
     background: none;
     border: none;
+    border-radius: 5px;
 }
 
 .unmark img {
