@@ -145,11 +145,13 @@ function bookmarkSection() {
     let bookmarkHtml = '',
         mark = '',
         v = '',
+        x = '',
         k = 1;
 
     for (const [key, value] of bookmarks) {
         mark = key.split("_");
         v = value.split(". ");
+        x = mark[1].split("-");
 
         bookmarkHtml += '<div class="bm-wrapper">'
             + '<div class="in-wrapper bookmark" id="' + key + '" data-chapter="' + mark[0] + '" data-verse="' + mark[1] + '">'
@@ -159,7 +161,7 @@ function bookmarkSection() {
             + '<span>' + v[1] + '</span>'
             + '<span>' + v[2] + '</span>'
             + '</div>'
-            + '<div class="in-bottom">' + mark[0] + ' &xhArr; ' + mark[1] + '</div>'
+            + '<div class="in-bottom">' + mark[0] + ' &#10033; ' + x[0] + '-' + x[2] + '</div>'
             + '</div>'
             + '</div>'
             + '<button class="unmark">'

@@ -203,9 +203,9 @@ header {
     font-size: 20px;
     text-align: right;
     direction: rtl;
-    white-space: nowrap;
+    /* white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
 }
 
 .bm-wrapper {
