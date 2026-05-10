@@ -161,7 +161,7 @@ function bookmarkSection() {
             + '<span>' + v[1] + '</span>'
             + '<span>' + v[2] + '</span>'
             + '</div>'
-            + '<div class="in-bottom">' + mark[0] + ' &#10033; ' + x[0] + '-' + x[2] + '</div>'
+            + '<div class="in-bottom">' + mark[0] + ' &#8718; ' + x[0] + '-' + x[2] + '</div>'
             + '</div>'
             + '</div>'
             + '<button class="unmark">'
