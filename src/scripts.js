@@ -508,19 +508,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const unmarkCls = e.target.closest(".unmark");
         if (unmarkCls) {
-            let bmElement = unmarkCls.previousElementSibling;
+            if (confirm("Are you sure to remove bookmark?")) {
+                let bmElement = unmarkCls.previousElementSibling;
 
-            if (bmElement.classList.contains('bookmark')) {
-                let key = bmElement.id;
+                if (bmElement.classList.contains('bookmark')) {
+                    let key = bmElement.id;
 
-                if (bookmarks.has(key)) {
-                    const verseEl = document.getElementById(bmElement.dataset.verse);
-                    if (verseEl) {
-                        verseEl.classList.remove('pinned');
+                    if (bookmarks.has(key)) {
+                        const verseEl = document.getElementById(bmElement.dataset.verse);
+                        if (verseEl) {
+                            verseEl.classList.remove('pinned');
+                        }
+                        bookmarks.delete(key);
+                        localStorage.setItem('bookmarks', JSON.stringify(Array.from(bookmarks)));
+                        bookmarkSection();
                     }
-                    bookmarks.delete(key);
-                    localStorage.setItem('bookmarks', JSON.stringify(Array.from(bookmarks)));
-                    bookmarkSection();
                 }
             }
             return;
